@@ -1,0 +1,73 @@
+<html>
+    <head>
+
+        <script>
+            function verzendPinTransactie(bedrag) {
+  // De URL van de server waarop de TRANS-opdracht wordt uitgevoerd
+  const serverUrl = "http://localhost:8080"; // Vervang dit met de juiste URL
+
+  // De gegevens die je naar de server wilt sturen
+  const requestData = {
+    command: "TRANS",
+    parameter: bedrag, // Vervang dit met het gewenste bedrag
+  };
+
+  // Het configuratie-object voor het HTTP-verzoek
+  const requestOptions = {
+    method: "GET", // Of 'POST' afhankelijk van de serverimplementatie
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  };
+
+  // Maak het HTTP-verzoek met behulp van fetch
+  fetch(serverUrl, requestOptions)
+    .then((response) => response.json()) // Als de server JSON als reactie stuurt
+    .then((data) => {
+      // Verwerk de reactie van de server hier
+      console.log(data);
+    })
+    .catch((error) => {
+      // Behandel eventuele fouten hier
+      console.error(error);
+    });
+}
+
+//verzendPinTransactie(10.00)
+
+function controleerPinTransactie() {
+    // De URL van de server waarop de STATUS-opdracht wordt uitgevoerd
+const serverUrl = 'http://localhost:8080/?STATUS'
+
+// Het configuratie-object voor het HTTP-verzoek
+const requestOptions = {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
+// Maak het HTTP-verzoek met behulp van fetch
+fetch(serverUrl, requestOptions)
+  .then(response => response.json()) // Als de server JSON als reactie stuurt
+  .then(data => {
+    // Verwerk de reactie van de server hier
+    console.log(data);
+  })
+  .catch(error => {
+    // Behandel eventuele fouten hier
+    console.error(error);
+  });
+
+}
+
+controleerPinTransactie()
+
+
+        </script>
+    </head>
+    <body>
+        <h1>haha</h1>
+    </body>
+</html>
