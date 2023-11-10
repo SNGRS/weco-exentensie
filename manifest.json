@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "HTML Extractor",
+  "name": "GBV WECO KASSA | Custom",
   "version": "1.0",
-  "description": "Extract and send HTML structure over WebSocket",
+  "description": "Custom extensie voor de GBV Weco kassa",
   "permissions": [
     "activeTab", "webRequest", "background"
   ],

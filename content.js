@@ -1,11 +1,9 @@
 /* --------------------------
 * TODO *
-
 - Evt pinkoppeling met PinTool
 - - Beide knoppen disablen
 - - Websocket naar tool https://chat.openai.com/c/bd112a8c-2106-410b-a3f3-d4d749d109e9 & https://chat.openai.com/c/3a0ed0ac-455d-4dee-bb87-5e9da7778116
 - - Indien mislukt: nee, indien gelukt: ja
-- Check of de sockets ready zijn!
 
 -------------------------- */
 function kickCashdrawer() {
@@ -131,6 +129,7 @@ function WisselgeldFunctie() {
 
   var buttonElement = document.createElement("button");
   buttonElement.textContent = "Kassalade openen";
+  buttonElement.setAttribute("id", "wisselgeld_openlade");
   buttonElement.addEventListener("click", function () {
     kickCashdrawer();
   });
