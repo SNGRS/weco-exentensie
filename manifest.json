@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "GBV WECO KASSA | Custom",
+  "name": "GBV WECO KASSA | Plus",
+  "author": "post@sngrs.com",
   "version": "1.0",
-  "description": "Custom extensie voor de GBV Weco kassa",
+  "description": "Plus extensie voor het toevoegen van printen naar kassabonprinter+bonprinter, wisselgeld en het openen van de kassalade.",
   "permissions": [
     "activeTab", "webRequest", "background"
   ],
