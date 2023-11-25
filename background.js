@@ -1,12 +1,6 @@
-// background.js
-
-// Luisteren naar berichten van content scripts
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        // De prijs ontvangen van het content script
         var prijs = request.prijs;
-        //alert(prijs)
-        console.log(request)
 
         // Een nieuw popupvenster openen met popup.html
         chrome.windows.create({

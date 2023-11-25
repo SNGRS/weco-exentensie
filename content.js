@@ -6,29 +6,13 @@ const domWecoOrderConfPage = "#losse-verkoop p.buttons > a"
 const domWecoCurrentPrice = "tr:last-child .prijs"
 
 const domExtOpenCashdrawerID = "openKassalade"
-
-/*const domWecoPaymentMethod = 'input[name="betaalmethode"]'
-const domWecoConfirmOpen = ".jconfirm-open"
-const domWecoConfirmTitle = ".jconfirm-title"
-const domWecoConfirmContent = ".jconfirm-content"
-
-
-const domExtChangeInputID ="wisselgeld_input"
-const domExtChangeFeedbackID = "wisselgeld_feedback"  
-const domExtChangeCashdrawerID = "wisselgeld_openlade"*/
+const domExtOpenChangePopupID = "openWisselgeldPopup"
 
 /// Opstartscript
 async function initialize() {
   const isWebSocketReady = await isWebSocketAvailable();
 
   if (isWebSocketReady) {
-    /*if (document.readyState === "complete") {
-      handleJSConfirmAvailability();
-    } else {
-      window.addEventListener("load", () => {
-        handleJSConfirmAvailability();
-      });
-    }*/
 
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", addKassaladeButton);
@@ -60,38 +44,6 @@ function isWebSocketAvailable() {
   });
 }
 
-/*function handleJSConfirmAvailability() {
-  const config = { childList: true, subtree: true };
-  let jsconfirmElement = document.querySelector(domWecoConfirmOpen);
-
-  function performActions() {
-    const betaalmethode = document.querySelector(domWecoPaymentMethod).value;
-
-    if (betaalmethode === "CASH") {
-      WisselgeldFunctie();
-    } else if (betaalmethode === "PIN") {
-      PinFunctie();
-    }
-  }
-
-  const observer = new MutationObserver(() => {
-    const currentJsconfirmElement = document.querySelector(domWecoConfirmOpen);
-
-    if (currentJsconfirmElement !== jsconfirmElement) {
-      jsconfirmElement = currentJsconfirmElement;
-
-      if (jsconfirmElement) {
-        performActions();
-      }
-    }
-  });
-
-  observer.observe(document.body, config);
-  if (jsconfirmElement) {
-    performActions();
-  }
-}*/
-
 //// Initiele functies
 function addKassaladeButton() {
   const button = document.createElement("button");
@@ -107,7 +59,7 @@ function addKassaladeButton() {
 
 function addWisselgeldButton() {
   const button = document.createElement("button");
-  button.id = "openWisselgeldPopup";
+  button.id = domExtOpenChangePopupID;
   button.textContent = "Wisselgeld";
   button.style.display = "none";
   button.addEventListener("click", function () {
@@ -179,9 +131,6 @@ function kickCashdrawer() {
 
 
 function toonPrijsPopup() {
-  //var prijsElement = document.querySelector(domWecoCurrentPrice);
-  //var prijs = prijsElement.textContent;
-
   var totalprijs_el = parseFloat(
     document
       .querySelector(domWecoCurrentPrice)
@@ -191,75 +140,6 @@ function toonPrijsPopup() {
 
   chrome.runtime.sendMessage({ prijs: totalprijs_el });
 }
-
-/*function PinFunctie() {
-  var totalprijs_el = parseFloat(
-    document
-      .querySelector(domWecoCurrentPrice)
-      .textContent.replace("Totaal: € ", "")
-      .replace(",", ".")
-  );
-  document.querySelector(domWecoConfirmTitle).textContent =
-    "Bedrag is €" + totalprijs_el;
-}
-
-function WisselgeldFunctie() {
-  var totalprijs_el = parseFloat(
-    document
-      .querySelector(domWecoCurrentPrice)
-      .textContent.replace("Totaal: € ", "")
-      .replace(",", ".")
-  );
-  document.querySelector(domWecoConfirmTitle).textContent =
-    "Bedrag is €" + totalprijs_el;
-
-  var inputElement = document.createElement("input");
-  inputElement.setAttribute("type", "text");
-  inputElement.setAttribute("id", domExtChangeInputID);
-  inputElement.setAttribute("placeholder", "Ingevoerd bedrag");
-
-  inputElement.addEventListener("input", function () {
-    let inputValue = this.value;
-    inputValue = inputValue.replace(/[^0-9]/g, "").replace(/^0+/, "");
-    if (inputValue.length <= 2) {
-      inputValue = "0." + inputValue.padStart(2, "0");
-    } else {
-      inputValue = inputValue.slice(0, -2) + "." + inputValue.slice(-2);
-    }
-    this.value = inputValue;
-  });
-  inputElement.addEventListener("input", calculateChange);
-
-  var pElement = document.createElement("p");
-  pElement.textContent = "Wisselgeld: € ";
-  var spanElement = document.createElement("span");
-  spanElement.setAttribute("id", domExtChangeFeedbackID);
-  spanElement.textContent = "0,00";
-  pElement.appendChild(spanElement);
-
-  var buttonElement = document.createElement("button");
-  buttonElement.textContent = "Kassalade openen";
-  buttonElement.setAttribute("id", domExtChangeCashdrawerID);
-  buttonElement.addEventListener("click", function () {
-    kickCashdrawer();
-  });
-
-  var container = document.querySelector(domWecoConfirmContent); // Vervang "container" door de ID van de container waarin je deze elementen wilt plaatsen
-  container.appendChild(inputElement);
-  container.appendChild(pElement);
-  container.appendChild(buttonElement);
-
-  function calculateChange() {
-    const wisselgeldInput = document.getElementById(domExtChangeInputID);
-    const wisselgeldEl = document.getElementById(domExtChangeFeedbackID);
-
-    const ingevoerdBedrag = parseFloat(wisselgeldInput.value);
-    const totaalBedrag = parseFloat(totalprijs_el);
-
-    let wisselgeld = (ingevoerdBedrag - totaalBedrag).toFixed(2);
-    wisselgeldEl.textContent = wisselgeld;
-  }
-}*/
 
 /// RUN EXTENSIE
 initialize();

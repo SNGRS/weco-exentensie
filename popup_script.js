@@ -53,7 +53,7 @@ function WisselgeldFunctie(totalprijs_el) {
     kickCashdrawer();
   });
 
-  var container = document.querySelector("body"); // Vervang "container" door de ID van de container waarin je deze elementen wilt plaatsen
+  var container = document.querySelector("body");
   container.appendChild(inputElement);
   container.appendChild(pElement);
   container.appendChild(buttonElement);
