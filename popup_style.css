@@ -1,0 +1,28 @@
+h1 {
+    font-size: 32px;
+    margin: 20px 0px;
+}
+
+p {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+#wisselgeld_feedback {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+#wisselgeld_input {
+    text-align: right;
+    font-size: 24px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#wisselgeld_openlade {
+    width: 100%;
+    font-size: 20px;
+    padding: 15px 0px;
+    margin-bottom: 50px;
+}

@@ -4,34 +4,39 @@ const addressWebsocket = "ws://localhost:3636"
 const domWecoSite = "#site"
 const domWecoOrderConfPage = "#losse-verkoop p.buttons > a"
 const domWecoCurrentPrice = "tr:last-child .prijs"
-const domWecoPaymentMethod = 'input[name="betaalmethode"]'
+
+const domExtOpenCashdrawerID = "openKassalade"
+
+/*const domWecoPaymentMethod = 'input[name="betaalmethode"]'
 const domWecoConfirmOpen = ".jconfirm-open"
 const domWecoConfirmTitle = ".jconfirm-title"
 const domWecoConfirmContent = ".jconfirm-content"
 
-const domExtOpenCashdrawerID = "openKassalade"
+
 const domExtChangeInputID ="wisselgeld_input"
 const domExtChangeFeedbackID = "wisselgeld_feedback"  
-const domExtChangeCashdrawerID = "wisselgeld_openlade"
+const domExtChangeCashdrawerID = "wisselgeld_openlade"*/
 
 /// Opstartscript
 async function initialize() {
   const isWebSocketReady = await isWebSocketAvailable();
 
   if (isWebSocketReady) {
-    if (document.readyState === "complete") {
+    /*if (document.readyState === "complete") {
       handleJSConfirmAvailability();
     } else {
       window.addEventListener("load", () => {
         handleJSConfirmAvailability();
       });
-    }
+    }*/
 
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", addKassaladeButton);
+      document.addEventListener("DOMContentLoaded", addWisselgeldButton);
       document.addEventListener("DOMContentLoaded", orderConf);
     } else {
       addKassaladeButton();
+      addWisselgeldButton();
       orderConf();
     }
   } else {
@@ -55,7 +60,7 @@ function isWebSocketAvailable() {
   });
 }
 
-function handleJSConfirmAvailability() {
+/*function handleJSConfirmAvailability() {
   const config = { childList: true, subtree: true };
   let jsconfirmElement = document.querySelector(domWecoConfirmOpen);
 
@@ -85,7 +90,7 @@ function handleJSConfirmAvailability() {
   if (jsconfirmElement) {
     performActions();
   }
-}
+}*/
 
 //// Initiele functies
 function addKassaladeButton() {
@@ -99,6 +104,19 @@ function addKassaladeButton() {
 
   document.querySelector(domWecoSite).appendChild(button);
 }
+
+function addWisselgeldButton() {
+  const button = document.createElement("button");
+  button.id = "openWisselgeldPopup";
+  button.textContent = "Wisselgeld";
+  button.style.display = "none";
+  button.addEventListener("click", function () {
+    toonPrijsPopup();
+  });
+
+  document.querySelector(domWecoSite).appendChild(button);
+}
+
 
 function orderConf() {
   const element = document.querySelector(domWecoOrderConfPage);
@@ -159,7 +177,22 @@ function kickCashdrawer() {
   });
 }
 
-function PinFunctie() {
+
+function toonPrijsPopup() {
+  //var prijsElement = document.querySelector(domWecoCurrentPrice);
+  //var prijs = prijsElement.textContent;
+
+  var totalprijs_el = parseFloat(
+    document
+      .querySelector(domWecoCurrentPrice)
+      .textContent.replace("Totaal: € ", "")
+      .replace(",", ".")
+  );
+
+  chrome.runtime.sendMessage({ prijs: totalprijs_el });
+}
+
+/*function PinFunctie() {
   var totalprijs_el = parseFloat(
     document
       .querySelector(domWecoCurrentPrice)
@@ -226,7 +259,7 @@ function WisselgeldFunctie() {
     let wisselgeld = (ingevoerdBedrag - totaalBedrag).toFixed(2);
     wisselgeldEl.textContent = wisselgeld;
   }
-}
+}*/
 
 /// RUN EXTENSIE
 initialize();

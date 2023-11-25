@@ -1,4 +1,4 @@
-#openKassalade {
+#openKassalade, #openWisselgeldPopup {
     display: block !important;
     position: fixed;
     font-size: 22px;
@@ -6,6 +6,10 @@
     bottom: 0;
     padding: 20px 10px;
     margin: 20px;
+}
+
+#openKassalade {
+    left: 170px;
 }
 
 #overlay {
@@ -33,7 +37,7 @@
     font-size: 100px;
 }
 
-.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons, .jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons {
+/*.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons, .jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons {
     float: unset !important;
 }
 
@@ -77,4 +81,4 @@
 
 .jconfirm-box {
     width: 500px;
-}
+}*/
